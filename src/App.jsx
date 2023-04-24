@@ -1,49 +1,57 @@
-import Header from "./components/Header"
-import Button from "./components/Button"
-import Questions from "./components/Questions"
-import React from 'react'
+import Header from "./components/Header";
+import Button from "./components/Button";
+import Quiz from "./components/Quiz";
+import React from "react";
 export default function App() {
+  const [start, setStart] = React.useState(false);
+  //empty string for the first fetch
+  const [quiz, setQuiz] = React.useState("");
+  const [questionData, setQuestionData] = React.useState([]);
+  const [answers, setAnswers] = React.useState([])
 
-const [start, setStart] = React.useState(false)
-//empty string for the first fetch
-const [fetchData, setFetchData]=React.useState([])
-const [questions, setQuestions] =React.useState({})
-console.log(fetchData)
-const title = "Quizzical"
-const ButtonText = "Start Here"
+  const title = "Quizzical";
+  const ButtonText = "Start Here";
 
-React.useEffect(()=>{
-//empty string for the first fetch
-fetchQuestions()
-},[fetchData, start])
+  React.useEffect(() => {
+    const fetchQuestions = async () => {
+      const response = await fetch(quiz);
+      const data = await response.json();
+      // console.log(data.results.map(item=>item.question))
+      setQuestionData(data.results);
+    };
+    //empty string for the first fetch so it doesn't just keep trying to load the api before the click
+    fetchQuestions();
+  }, [quiz, start]);
 
-const fetchQuestions = async () => {
-  const response = await fetch(fetchData);
-    const data = await response.json();
- 
-    setFetchData(data.results.map(elem => (
-  {
-   category: elem.category,
-  
-  } 
-)))}
-  
-
-  function startGame(){
-    setFetchData("https://opentdb.com/api.php?amount=10")
-    setStart(true)
+  function startGame() {
+    setStart(true);
+    setQuiz("https://opentdb.com/api.php?amount=10");
+    //loading spinner
   }
 
+  // function Answers(){
+  //     return questionData.map(item=>[...item.incorrect_answers, item.correct_answer])
+  // }
 
-return (
-<main>
+  // console.log('answers', Answers())
+  function chooseAnswer(){
+console.log('answer')
+  }
 
-{!start  && <Header title = {title}/>}
-{!start &&  <Button btnText = {ButtonText} handleClick = {startGame}/>}
-{start && <Questions question={fetchData} />}
+  const getQuestions = questionData.map((item) => {
+ 
+    return <Quiz question={item.question} answer={[...item.incorrect_answers, item.correct_answer]} handleClick={chooseAnswer} />;
+  });
 
-</main>
-);
+
+
+
+
+  return (
+    <main>
+      {!start && <Header title={title} />}
+      {!start && <Button btnText={ButtonText} handleClick={startGame} />}
+      {start && getQuestions}
+    </main>
+  );
 }
-
-
