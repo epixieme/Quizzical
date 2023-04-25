@@ -52,22 +52,18 @@ export default function App() {
   }
 
   const getQuestions = questionData.map((item) => {
-    return <Quiz  question={item.question} answer={[...item.incorrect_answers, item.correct_answer]} handleClick={chooseAnswer} />;
+    return <Quiz question={item.question} answer={[...item.incorrect_answers, item.correct_answer]} handleClick={chooseAnswer} />;
   });
 
-  const loadingCondition =  loading? <Spinner loading = {loading} isLoading = {loadingText}/>:start && <Button btnText={EndBtnText} handleClick={EndGame} />
-
+  const loadingCondition = loading? <Spinner loading = {loading} isLoading = {loadingText}/>:<Button btnText={EndBtnText} handleClick={EndGame} />
 
   return (
 
-    <main>
+    <main class ={!start?'main':'questions'}>
      {!start && <Header title={title} />}
       {!start && <Button btnText={StartBtnText} handleClick={startGame} />}
       {start && getQuestions}
       {start && loadingCondition}
-      
-   
-      
     </main>
     
   );
