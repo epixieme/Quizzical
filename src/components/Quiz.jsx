@@ -1,12 +1,25 @@
-import Button from './Button'
 export default function Quiz(props){
 
+    const incorrectAnswers  = props.incorrectAnswer.map(item=>{
+        return <section  className="answer-container">
+        <p onClick={props.handleClick}>{item}</p>
+        </section>
+    })
 
+   
+   
 return(
-       <section>
+       <section >
        <p>{props.question}</p>
-       <p onClick={props.handleClick}>{props.answer}</p>
+       <section>
+       {incorrectAnswers}
+       <section className="answer-container">
+       <p>{props.correctAnswer}</p>
+       </section>
+       </section>
+   
       </section>
+      
         
     )
 }
