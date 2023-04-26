@@ -82,10 +82,12 @@ body {
       .answer-container{
 
         border:black solid 1px;
-        border-radius:5px;
+        border-radius:20px;
+        padding:5px 10px;
 
       }
 
-      .answer-align-container{
+      .answers-outer-container{
         display:flex;
+        gap:20px
       }

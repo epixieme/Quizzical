@@ -5,7 +5,6 @@ import Quiz from "./components/Quiz";
 import Spinner from "./components/Spinner";
 import Answers from "./components/Answers";
 
-
 export default function App() {
   const [start, setStart] = React.useState(false);
   //empty string for the first fetch
@@ -41,35 +40,46 @@ export default function App() {
     setQuiz("https://opentdb.com/api.php?amount=10");
   }
 
-  function chooseAnswer() {
-  questionData.map(item=>{
-  if(item.correct_answer === answer ){
-    ///highlight the answer in green
-    //else red
+  function chooseAnswer(correctAnswer,event) {
+    const combinedAnswers = questionData.map(item=>item)
+    console.log(combinedAnswers)
+    // console.log(questiondata === correctAnswer)
+    // setQuestionData((prevData) =>
+    //   prevData.map((item) => {
+    //     if (item.correct_answer === answer) {
+    //     //   {
+    //     //   ...prevData,
+    //     //   isCorrect:true
+    //     // }
+    //       ///highlight the answer in green
+    //       //else red
+    //     //  set something to true or to false?
+    //     console.log(true)
+    //     }
+    //     else{
+    //       console.log(false)
+    //     }
+    //   })
+    // );
   }
-})
+
+  function EndGame() {
 
   }
-
-  function EndGame() {}
 
   const getQuiz = questionData.map((item) => {
-    const incorrectAnswers = item.incorrect_answers
-    const correctAnswer = item.correct_answer
+    const incorrectAnswers = item.incorrect_answers;
+    const correctAnswer = item.correct_answer;
 
     return (
       <Quiz
         question={item.question}
         incorrectAnswer={incorrectAnswers}
-        correctAnswer = {correctAnswer}
-        handleClick={chooseAnswer}
+        correctAnswer={correctAnswer}
+        handleClick={()=>chooseAnswer(correctAnswer)}
       />
     );
   });
-
-
- 
-
 
   const loadingCondition = loading ? (
     <Spinner loading={loading} isLoading={loadingText} />
