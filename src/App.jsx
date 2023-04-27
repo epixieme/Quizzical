@@ -9,11 +9,14 @@ export default function App() {
   const [start, setStart] = React.useState(false);
   //empty string for the first fetch
   const [quiz, setQuiz] = React.useState("");
-  const [questionData, setQuestionData] = React.useState([]);
+
+  const [questionInfo, setQuestionInfo] = React.useState([]);
+  console.log(questionInfo);
   const [answers, setAnswers] = React.useState({
-    isCorrect:false,
-    Answers:[]
+    answers: [],
+    isCorrect: false,
   });
+
   const [loading, setLoading] = React.useState(false);
 
   const title = "Quizzical";
@@ -27,7 +30,20 @@ export default function App() {
         setLoading(true);
         const response = await fetch(quiz);
         const data = await response.json();
-        setQuestionData(data.results);
+
+        // setquestiondata needs to be made into an object
+
+        setQuestionInfo(
+          data.results.map((item) => {
+            return {
+              question: item.question,
+              answers: [...item.incorrect_answers, item.correct_answer],
+              isSelected: false,
+              isCorrect: false,
+              correctAnswer:item.correct_answer,
+            };
+          })
+        );
       } catch (e) {
         console.log(e);
       } finally {
@@ -44,32 +60,24 @@ export default function App() {
   }
 
   function chooseAnswer(answer) {
-    return questionData.map(item=>{
-  if(answer === item.correct_answer){
-  console.log(true)
-}
-    })
-    // if(answer === questionData)
+    console.log(answer)
 
- 
-
+    setQuestionInfo(prev=>prev.map(item=>{
+      return answer===item.correctAnswer?{...item, isCorrect:true}:item
+    }))
+  
   }
 
-  function EndGame() {
+  function EndGame() {}
 
-  }
-
-  const getQuiz = questionData.map((item) => {
-
-    const allAnswers = [...item.incorrect_answers, item.correct_answer]
-    console.log(allAnswers)
- 
+  const getQuiz = questionInfo.map((item) => {
+    // const allAnswers = [...item.incorrect_answers, item.correct_answer]
 
     return (
       <Quiz
         question={item.question}
         handleClick={chooseAnswer}
-        allAnswers ={allAnswers}
+        allAnswers={item.answers}
       />
     );
   });
