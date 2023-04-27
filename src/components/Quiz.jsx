@@ -1,10 +1,11 @@
 export default function Quiz(props){
-    
-const combinedAnswers = [...props.incorrectAnswer, props.correctAnswer]
-    const answers = combinedAnswers.map(answer=>{
+
+
+    const answers = props.allAnswers.map(answer=>{
+       
         return (
         <section  className="answer-container">
-        <p onClick={props.handleClick}>{answer}</p>
+        <p onClick={()=>props.handleClick(answer)}>{answer}</p>
         </section>
         )
     })

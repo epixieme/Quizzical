@@ -10,7 +10,10 @@ export default function App() {
   //empty string for the first fetch
   const [quiz, setQuiz] = React.useState("");
   const [questionData, setQuestionData] = React.useState([]);
-  const [answers, setAnswers] = React.useState([]);
+  const [answers, setAnswers] = React.useState({
+    isCorrect:false,
+    Answers:[]
+  });
   const [loading, setLoading] = React.useState(false);
 
   const title = "Quizzical";
@@ -40,27 +43,16 @@ export default function App() {
     setQuiz("https://opentdb.com/api.php?amount=10");
   }
 
-  function chooseAnswer(correctAnswer,event) {
-    const combinedAnswers = questionData.map(item=>item)
-    console.log(combinedAnswers)
-    // console.log(questiondata === correctAnswer)
-    // setQuestionData((prevData) =>
-    //   prevData.map((item) => {
-    //     if (item.correct_answer === answer) {
-    //     //   {
-    //     //   ...prevData,
-    //     //   isCorrect:true
-    //     // }
-    //       ///highlight the answer in green
-    //       //else red
-    //     //  set something to true or to false?
-    //     console.log(true)
-    //     }
-    //     else{
-    //       console.log(false)
-    //     }
-    //   })
-    // );
+  function chooseAnswer(answer) {
+    return questionData.map(item=>{
+  if(answer === item.correct_answer){
+  console.log(true)
+}
+    })
+    // if(answer === questionData)
+
+ 
+
   }
 
   function EndGame() {
@@ -68,15 +60,16 @@ export default function App() {
   }
 
   const getQuiz = questionData.map((item) => {
-    const incorrectAnswers = item.incorrect_answers;
-    const correctAnswer = item.correct_answer;
+
+    const allAnswers = [...item.incorrect_answers, item.correct_answer]
+    console.log(allAnswers)
+ 
 
     return (
       <Quiz
         question={item.question}
-        incorrectAnswer={incorrectAnswers}
-        correctAnswer={correctAnswer}
-        handleClick={()=>chooseAnswer(correctAnswer)}
+        handleClick={chooseAnswer}
+        allAnswers ={allAnswers}
       />
     );
   });
@@ -88,7 +81,7 @@ export default function App() {
   );
 
   return (
-    <main class={loading || !start ? "main" : "questions"}>
+    <main className={loading || !start ? "main" : "questions"}>
       {!start && <Header title={title} />}
       {!start && <Button btnText={StartBtnText} handleClick={startGame} />}
       {start && getQuiz}
