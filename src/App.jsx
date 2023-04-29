@@ -4,6 +4,7 @@ import Button from "./components/Button";
 import Quiz from "./components/Quiz";
 import Spinner from "./components/Spinner";
 import Answers from "./components/Answers";
+import {nanoid} from "nanoid"
 
 export default function App() {
   const [start, setStart] = React.useState(false);
@@ -40,6 +41,7 @@ export default function App() {
             ];
             return {
               question: item.question,
+              id: nanoid(),
               allAnswers: [...item.incorrect_answers, item.correct_answer].map(
                 (ele) => {
                   return {
@@ -47,6 +49,7 @@ export default function App() {
                     isSelected: false,
                     isCorrect: false,
                     correctAnswer: item.correct_answer, // fixed by changing map from item to ele
+                    id: nanoid()
                   };
                 }
               ),
@@ -72,7 +75,7 @@ export default function App() {
   }
 
   function chooseAnswer(selectedAnswer) {
-
+// change all of this to use id so its unique.
   console.log(questionData)
   setQuestionData(prev=>{
     return prev.map(ele=>{
@@ -80,18 +83,23 @@ export default function App() {
         ...ele,
 
         allAnswers: ele.allAnswers.map(item=>{
+         
           if(selectedAnswer === item.correctAnswer){
           return {
             ...item,
-            isCorrect:true
+            isCorrect:true,
+            // isSelected:true
           }
-        }else{
+        }else {
           return{
             ...item,
-            isCorrect: false
+            isCorrect: false,
+            // isSelected:true
           }
         
         }
+
+       
         })
       
       
@@ -114,6 +122,7 @@ export default function App() {
         question={item.question}
         handleClick={chooseAnswer}
         allAnswers={item.allAnswers}
+        key={item.id} 
       />
     );
   });
