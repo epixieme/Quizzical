@@ -9,13 +9,10 @@ export default function App() {
   const [start, setStart] = React.useState(false);
   //empty string for the first fetch
   const [quiz, setQuiz] = React.useState("");
-
+  const [questionData, setQuestionData] = React.useState([]);
   const [questionInfo, setQuestionInfo] = React.useState([]);
-  console.log(questionInfo);
-  const [answers, setAnswers] = React.useState({
-    answers: [],
-    isCorrect: false,
-  });
+
+ 
 
   const [loading, setLoading] = React.useState(false);
 
@@ -33,17 +30,32 @@ export default function App() {
 
         // setquestiondata needs to be made into an object
 
-        setQuestionInfo(
+     
+
+        setQuestionData(
           data.results.map((item) => {
+            let combinedArray = [
+              ...item.incorrect_answers,
+              item.correct_answer,
+            ];
             return {
               question: item.question,
-              answers: [...item.incorrect_answers, item.correct_answer],
-              isSelected: false,
-              isCorrect: false,
-              correctAnswer:item.correct_answer,
+              allAnswers: [...item.incorrect_answers, item.correct_answer].map(
+                (ele) => {
+                  return {
+                    answer: ele,
+                    isSelected: false,
+                    isCorrect: false,
+                    correctAnswer: item.correct_answer, // fixed by changing map from item to ele
+                  };
+                }
+              ),
+
+          
             };
           })
         );
+
       } catch (e) {
         console.log(e);
       } finally {
@@ -59,25 +71,49 @@ export default function App() {
     setQuiz("https://opentdb.com/api.php?amount=10");
   }
 
-  function chooseAnswer(answer) {
-    console.log(answer)
+  function chooseAnswer(selectedAnswer) {
 
-    setQuestionInfo(prev=>prev.map(item=>{
-      return answer===item.correctAnswer?{...item, isCorrect:true}:item
-    }))
-  
+  console.log(questionData)
+  setQuestionData(prev=>{
+    return prev.map(ele=>{
+      return {
+        ...ele,
+
+        allAnswers: ele.allAnswers.map(item=>{
+          if(selectedAnswer === item.correctAnswer){
+          return {
+            ...item,
+            isCorrect:true
+          }
+        }else{
+          return{
+            ...item,
+            isCorrect: false
+          }
+        
+        }
+        })
+      
+      
+      }
+
+      
+    })
+  })
   }
+
+  function quizResult() {}
 
   function EndGame() {}
 
-  const getQuiz = questionInfo.map((item) => {
+  const getQuiz = questionData.map((item) => {
     // const allAnswers = [...item.incorrect_answers, item.correct_answer]
 
     return (
       <Quiz
         question={item.question}
         handleClick={chooseAnswer}
-        allAnswers={item.answers}
+        allAnswers={item.allAnswers}
       />
     );
   });
