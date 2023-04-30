@@ -74,9 +74,9 @@ export default function App() {
     setQuiz("https://opentdb.com/api.php?amount=10");
   }
 
-  function chooseAnswer(selectedAnswer) {
+  function chooseAnswer(selectedAnswer, answerid, mainid) {
 // change all of this to use id so its unique.
-  console.log(questionData)
+  // console.log(questionData)
   setQuestionData(prev=>{
     return prev.map(ele=>{
       return {
@@ -115,14 +115,14 @@ export default function App() {
   function EndGame() {}
 
   const getQuiz = questionData.map((item) => {
-    // const allAnswers = [...item.incorrect_answers, item.correct_answer]
-
     return (
       <Quiz
         question={item.question}
         handleClick={chooseAnswer}
         allAnswers={item.allAnswers}
         key={item.id} 
+        answerid ={item.allAnswers.map(ele=>ele.id)}
+        mainid = {item.id}
       />
     );
   });

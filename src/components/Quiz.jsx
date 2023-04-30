@@ -1,10 +1,11 @@
 export default function Quiz(props){
-    
+
+
 const answers = props.allAnswers.map(answer=>{
     
         return (
                 <section  className="answer-container">
-                <p onClick={()=>props.handleClick(answer.answer)}>{answer.answer}</p>
+                <p onClick={()=>props.handleClick(answer.answer, answer.answerid, props.mainid)}>{answer.answer}</p>
                 </section>
                 )
     
