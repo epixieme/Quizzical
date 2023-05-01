@@ -115,6 +115,9 @@ export default function App() {
   const selected = questionData.flatMap(item=>item.allAnswers.filter(ele=>ele.isSelected === true))
   const selectedAnswers = selected.map(item=>item.answer === item.correctAnswer)
   
+// display result 
+//change button to new game
+//reset everything
 
   console.log('selected',selected)
   console.log('answer',selectedAnswers)
