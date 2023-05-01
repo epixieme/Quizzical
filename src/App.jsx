@@ -4,7 +4,7 @@ import Button from "./components/Button";
 import Quiz from "./components/Quiz";
 import Spinner from "./components/Spinner";
 import Answers from "./components/Answers";
-import {nanoid} from "nanoid"
+import { nanoid } from "nanoid";
 
 export default function App() {
   const [start, setStart] = React.useState(false);
@@ -12,8 +12,7 @@ export default function App() {
   const [quiz, setQuiz] = React.useState("");
   const [questionData, setQuestionData] = React.useState([]);
   const [questionInfo, setQuestionInfo] = React.useState([]);
-
- 
+  // console.log(questionData)
 
   const [loading, setLoading] = React.useState(false);
 
@@ -31,8 +30,6 @@ export default function App() {
 
         // setquestiondata needs to be made into an object
 
-     
-
         setQuestionData(
           data.results.map((item) => {
             let combinedArray = [
@@ -49,16 +46,13 @@ export default function App() {
                     isSelected: false,
                     isCorrect: false,
                     correctAnswer: item.correct_answer, // fixed by changing map from item to ele
-                    id: nanoid()
+                    id: nanoid(),
                   };
                 }
               ),
-
-          
             };
           })
         );
-
       } catch (e) {
         console.log(e);
       } finally {
@@ -75,42 +69,56 @@ export default function App() {
   }
 
   function chooseAnswer(selectedAnswer, answerid, mainid) {
-// change all of this to use id so its unique.
-  // console.log(questionData)
-  setQuestionData(prev=>{
-    return prev.map(ele=>{
-      return {
-        ...ele,
+    // change all of this to use id so its unique.
 
-        allAnswers: ele.allAnswers.map(item=>{
-         
-          if(selectedAnswer === item.correctAnswer){
-          return {
-            ...item,
-            isCorrect:true,
-            // isSelected:true
-          }
-        }else {
-          return{
-            ...item,
-            isCorrect: false,
-            // isSelected:true
-          }
-        
-        }
-
+    setQuestionData((prev) => {
+      return prev.map((ele) => {
        
-        })
-      
-      
-      }
+        if (mainid === ele.id) {
+          return {
+            ...ele,
 
+            allAnswers: ele.allAnswers.map((item) => {
+            
+              if (answerid === item.id) {
+                return {
+                  ...item,
+                  isSelected: true,
+               
+                };
+              } else {
+                return {
+                  ...item,
+                  isSelected: false,
+              
+                };
+              }
+             
+            }),
       
-    })
-  })
+          };
+        } else {
+          return {
+            ...ele
+          };
+        }
+     
+      });
+      
+    });
+ 
   }
 
-  function quizResult() {}
+  function correctAnswer(){
+
+
+  const selected = questionData.flatMap(item=>item.allAnswers.filter(ele=>ele.isSelected === true))
+  const selectedAnswers = selected.map(item=>item.answer === item.correctAnswer)
+  
+
+  console.log('selected',selected)
+  console.log('answer',selectedAnswers)
+  } /// fix this logic
 
   function EndGame() {}
 
@@ -120,9 +128,9 @@ export default function App() {
         question={item.question}
         handleClick={chooseAnswer}
         allAnswers={item.allAnswers}
-        key={item.id} 
-        answerid ={item.allAnswers.map(ele=>ele.id)}
-        mainid = {item.id}
+        key={item.id}
+        answerid={item.allAnswers.map((ele) => ele.id)}
+        mainid={item.id}
       />
     );
   });
@@ -130,7 +138,7 @@ export default function App() {
   const loadingCondition = loading ? (
     <Spinner loading={loading} isLoading={loadingText} />
   ) : (
-    <Button btnText={EndBtnText} handleClick={EndGame} />
+    <Button btnText={EndBtnText} handleClick={correctAnswer} />
   );
 
   return (
