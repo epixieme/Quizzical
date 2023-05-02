@@ -11,10 +11,11 @@ export default function App() {
   //empty string for the first fetch
   const [quiz, setQuiz] = React.useState("");
   const [questionData, setQuestionData] = React.useState([]);
-  const [questionInfo, setQuestionInfo] = React.useState([]);
-  // console.log(questionData)
+
+  console.log(questionData)
 
   const [loading, setLoading] = React.useState(false);
+  const [check, setCheck] = React.useState(false)
 
   const title = "Quizzical";
   const StartBtnText = "Start Here";
@@ -73,59 +74,69 @@ export default function App() {
 
     setQuestionData((prev) => {
       return prev.map((ele) => {
-       
         if (mainid === ele.id) {
           return {
             ...ele,
 
             allAnswers: ele.allAnswers.map((item) => {
-            
               if (answerid === item.id) {
                 return {
                   ...item,
                   isSelected: true,
-               
+                  isCorrect:selectedAnswer === item.correctAnswer
                 };
               } else {
                 return {
                   ...item,
                   isSelected: false,
-              
+                  isCorrect:false
                 };
               }
-             
             }),
-      
           };
         } else {
           return {
-            ...ele
+            ...ele,
           };
         }
-     
       });
-      
     });
- 
   }
 
-  function correctAnswer(){
+  function correctAnswer() {
+
+setCheck(true)
+  // questionData.map(item=>{
+  // const selected = item.allAnswers.filter((ele) => ele.isSelected === true)
+
+  // const correctAnswers = selected.filter(
+  //   item => item.answer === item.correctAnswer 
+  // );
+
+  // const incorrectAnswers = selected.filter(
+  //   item => item.answer !== item.correctAnswer 
+  // );
 
 
-  const selected = questionData.flatMap(item=>item.allAnswers.filter(ele=>ele.isSelected === true))
-  const selectedAnswers = selected.map(item=>item.answer === item.correctAnswer)
+//   console.log(correctAnswers)
+// })
+
   
-// display result 
-//change button to new game
-//reset everything
+    // display result
+    //change button to new game
+    //reset everything
 
-  console.log('selected',selected)
-  console.log('answer',selectedAnswers)
+    // console.log("selected", selected);
+    // console.log("answer", selectedAnswers);
   } /// fix this logic
 
   function EndGame() {}
 
   const getQuiz = questionData.map((item) => {
+
+ 
+
+   //work out how to update the if correct then
     return (
       <Quiz
         question={item.question}
@@ -134,6 +145,9 @@ export default function App() {
         key={item.id}
         answerid={item.allAnswers.map((ele) => ele.id)}
         mainid={item.id}
+        isChecked={check}
+        // isCorrect = {item.allAnswers.map((ele) => ele.isCorrect)}
+    
       />
     );
   });
