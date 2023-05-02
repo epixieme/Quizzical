@@ -3,24 +3,24 @@ export default function Quiz(props) {
     //     // console.log(answer.id) how do I get this to work on click rather than straigt off
     function answerColors() {
       if (answer.isSelected && !props.isChecked) {
-        return "blue";
+        return "#D6DBF5";
       } else if (!answer.isSelected && !props.isChecked) {
         return "white";
       }
-      
+
       if (answer.answer === answer.correctAnswer && props.isChecked) {
-        return "green";
+        return "#94D7A2";
       } else if (answer.isSelected && answer.isCorrect && props.isChecked) {
-        return "green";
+        return "#94D7A2";
       } else if (answer.isSelected && !answer.isCorrect && props.isChecked) {
-        return "red";
+        return "#F8BCBC";
       } else {
         return "none";
       }
     }
 
     const styles = {
-      border: answer.isSelected ? "1px solid green" : "black 1px solid",
+      border: answer.isSelected ? "1px solid white" : "#293264 1px solid",
       backgroundColor: answerColors(),
     };
     return (

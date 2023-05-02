@@ -19,7 +19,7 @@ export default function App() {
 
   const title = "Quizzical";
   const StartBtnText = "Start Here";
-  const EndBtnText = "Results";
+  const EndBtnText = "Check Answers";
   const loadingText = "loading...";
 
   React.useEffect(() => {
@@ -32,13 +32,11 @@ export default function App() {
         // setquestiondata needs to be made into an object
 
         setQuestionData(
+       
           data.results.map((item) => {
-            let combinedArray = [
-              ...item.incorrect_answers,
-              item.correct_answer,
-            ];
+           
             return {
-              question: item.question,
+              question: item.question.replace(/&[#A-Za-z0-9]+;/gi,''),
               id: nanoid(),
               allAnswers: [...item.incorrect_answers, item.correct_answer].map(
                 (ele) => {
@@ -129,7 +127,9 @@ export default function App() {
   const loadingCondition = loading ? (
     <Spinner loading={loading} isLoading={loadingText} />
   ) : (
+    <section className='button-alignment'>
     <Button btnText={EndBtnText} handleClick={correctAnswer} />
+    </section>
   );
 
   return (
