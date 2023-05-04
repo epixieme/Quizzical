@@ -1,10 +1,11 @@
-import main from "../css/main.css"
-export default function Button(props){
-
-  
+import main from "../css/main.css";
+export default function Button(props) {
   return (
-        <div >
-            <button className='btn' onClick = {props.handleClick}>{props.btnText}</button>
-        </div>
-    )
+    <div>
+      <p>{props.checked ? "You scored xxxx" : ""}</p>
+      <button className="btn" onClick={props.handleClick}>
+        {props.btnText}
+      </button>
+    </div>
+  );
 }

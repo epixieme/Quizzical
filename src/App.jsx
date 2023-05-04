@@ -3,7 +3,6 @@ import Header from "./components/Header";
 import Button from "./components/Button";
 import Quiz from "./components/Quiz";
 import Spinner from "./components/Spinner";
-import Answers from "./components/Answers";
 import { nanoid } from "nanoid";
 
 export default function App() {
@@ -19,7 +18,8 @@ export default function App() {
 
   const title = "Quizzical";
   const StartBtnText = "Start Here";
-  const EndBtnText = "Check Answers";
+  const CheckResult = "Check Answers";
+  const PlayAgain = "Play Again";
   const loadingText = "loading...";
 
   React.useEffect(() => {
@@ -41,10 +41,10 @@ export default function App() {
               allAnswers: [...item.incorrect_answers, item.correct_answer].map(
                 (ele) => {
                   return {
-                    answer: ele,
+                    answer: ele.replace(/&[#A-Za-z0-9]+;/gi,''),
                     isSelected: false,
                     isCorrect: false,
-                    correctAnswer: item.correct_answer, // fixed by changing map from item to ele
+                    correctAnswer: item.correct_answer.replace(/&[#A-Za-z0-9]+;/gi,''), // fixed by changing map from item to ele
                     id: nanoid(),
                   };
                 }
@@ -72,6 +72,8 @@ export default function App() {
 
     setQuestionData((prev) => {
       return prev.map((ele) => {
+
+        // this picks the correct question otherwise it will look at the answers across all questions and only pick one answer for the whole thing rather than within each answer array
         if (mainid === ele.id) {
           return {
             ...ele,
@@ -81,7 +83,7 @@ export default function App() {
                 return {
                   ...item,
                   isSelected: true,
-                  isCorrect: selectedAnswer === item.correctAnswer,
+                  isCorrect: selectedAnswer === item.correctAnswer, // this equates to true
                 };
               } else {
                 return {
@@ -102,11 +104,23 @@ export default function App() {
   }
 
   function correctAnswer() {
+  // const allSelected = questionData.map(item=>item.allAnswers.every(item.isSelected))
+  // if(allSelected){
     setCheck(true);
+  // }
+
  
   } /// fix this logic
 
-  function EndGame() {}
+  function playAgain() {
+  // setquestionDate()
+  setStart(false);
+  //isselected(false)
+  //iscorrect(false)
+  setCheck(false)
+    console.log("playAgain")
+    // startGame()
+  }
 
   const getQuiz = questionData.map((item) => {
     //work out how to update the if correct then
@@ -119,7 +133,6 @@ export default function App() {
         answerid={item.allAnswers.map((ele) => ele.id)}
         mainid={item.id}
         isChecked={check}
-        // isCorrect = {item.allAnswers.map((ele) => ele.isCorrect)}
       />
     );
   });
@@ -128,7 +141,7 @@ export default function App() {
     <Spinner loading={loading} isLoading={loadingText} />
   ) : (
     <section className='button-alignment'>
-    <Button btnText={EndBtnText} handleClick={correctAnswer} />
+    <Button btnText={check? PlayAgain:CheckResult} handleClick={check?playAgain:correctAnswer}  checked={check}/>
     </section>
   );
 
@@ -141,3 +154,6 @@ export default function App() {
     </main>
   );
 }
+
+
+/// work out how to reset and clear the data
