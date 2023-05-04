@@ -137,11 +137,15 @@ export default function App() {
     );
   });
 
+  const numberCorrect = questionData.flatMap(item=>item.allAnswers.filter(ele=>ele.isCorrect)).length
+  const allAnswers = questionData.length
+  console.log(allAnswers)
+
   const loadingCondition = loading ? (
     <Spinner loading={loading} isLoading={loadingText} />
   ) : (
     <section className='button-alignment'>
-    <Button btnText={check? PlayAgain:CheckResult} handleClick={check?playAgain:correctAnswer}  checked={check}/>
+    <Button btnText={check? PlayAgain:CheckResult} handleClick={check?playAgain:correctAnswer}  checked={check} numberCorrect={numberCorrect} allAnswers={allAnswers}/>
     </section>
   );
 
