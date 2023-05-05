@@ -143,7 +143,7 @@ body {
         }
         .question-text{
           
-            padding:10px 60px
+            padding:10px 140px
         }
 
 
@@ -160,6 +160,11 @@ body {
         padding:0 20px
    
 
+      }
+      .display-score{
+        display:flex;
+        gap:30px;
+        font-weight:600
       }
       }
      

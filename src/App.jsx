@@ -32,19 +32,20 @@ export default function App() {
         // setquestiondata needs to be made into an object
 
         setQuestionData(
-       
           data.results.map((item) => {
-           
             return {
-              question: item.question.replace(/&[#A-Za-z0-9]+;/gi,''),
+              question: item.question.replace(/&[#A-Za-z0-9]+;/gi, ""),
               id: nanoid(),
               allAnswers: [...item.incorrect_answers, item.correct_answer].map(
                 (ele) => {
                   return {
-                    answer: ele.replace(/&[#A-Za-z0-9]+;/gi,''),
+                    answer: ele.replace(/&[#A-Za-z0-9]+;/gi, ""),
                     isSelected: false,
                     isCorrect: false,
-                    correctAnswer: item.correct_answer.replace(/&[#A-Za-z0-9]+;/gi,''), // fixed by changing map from item to ele
+                    correctAnswer: item.correct_answer.replace(
+                      /&[#A-Za-z0-9]+;/gi,
+                      ""
+                    ), // fixed by changing map from item to ele
                     id: nanoid(),
                   };
                 }
@@ -72,7 +73,6 @@ export default function App() {
 
     setQuestionData((prev) => {
       return prev.map((ele) => {
-
         // this picks the correct question otherwise it will look at the answers across all questions and only pick one answer for the whole thing rather than within each answer array
         if (mainid === ele.id) {
           return {
@@ -104,22 +104,24 @@ export default function App() {
   }
 
   function correctAnswer() {
-  // const allSelected = questionData.map(item=>item.allAnswers.every(item.isSelected))
-  // if(allSelected){
-    setCheck(true);
-  // }
 
- 
-  } /// fix this logic
+   const selectedAnswers = questionData.flatMap(item=>item.allAnswers.filter(ele=>ele.isSelected))
+    //if isSelected < 10 then message please select all else  setchecked true
+    // const allSelected = questionData.map(item=>item.allAnswers.every(item.isSelected))
+    // if(allSelected){
+      if(selectedAnswers.length === 10){
+        setCheck(true);
+      }else{
+        console.log("please select from all of the answers")
+      }
+
+    // }
+  }
 
   function playAgain() {
-  // setquestionDate()
-  setStart(false);
-  //isselected(false)
-  //iscorrect(false)
-  setCheck(false)
-    console.log("playAgain")
-    // startGame()
+    setStart(false);
+    setCheck(false);
+
   }
 
   const getQuiz = questionData.map((item) => {
@@ -137,15 +139,24 @@ export default function App() {
     );
   });
 
-  const numberCorrect = questionData.flatMap(item=>item.allAnswers.filter(ele=>ele.isCorrect)).length
-  const allAnswers = questionData.length
-  console.log(allAnswers)
+  const numberCorrect = questionData.flatMap((item) =>
+    item.allAnswers.filter((ele) => ele.isCorrect)
+  ).length;
+
+  const allAnswers = questionData.length;
+  console.log(allAnswers);
 
   const loadingCondition = loading ? (
     <Spinner loading={loading} isLoading={loadingText} />
   ) : (
-    <section className='button-alignment'>
-    <Button btnText={check? PlayAgain:CheckResult} handleClick={check?playAgain:correctAnswer}  checked={check} numberCorrect={numberCorrect} allAnswers={allAnswers}/>
+    <section className="button-alignment">
+      <Button
+        btnText={check ? PlayAgain : CheckResult}
+        handleClick={check ? playAgain : correctAnswer}
+        checked={check}
+        numberCorrect={numberCorrect}
+        allAnswers={allAnswers}
+      />
     </section>
   );
 
@@ -158,6 +169,5 @@ export default function App() {
     </main>
   );
 }
-
 
 /// work out how to reset and clear the data
