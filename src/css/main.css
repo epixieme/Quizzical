@@ -40,6 +40,10 @@ body {
         align-items: center;
       
     }
+    .form-controls{
+      display: flex;
+      flex-direction: column;
+    }
     .questions{
 
         /* width:100vw; */

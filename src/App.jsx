@@ -38,6 +38,7 @@ export default function App() {
           data.results.map((item) => {
             return {
               category:item.category,
+              difficulty:item.difficulty,
               question: item.question.replace(/&[#A-Za-z0-9]+;/gi, ""),
               id: nanoid(),
               allAnswers: [...item.incorrect_answers, item.correct_answer].map(
@@ -184,7 +185,7 @@ export default function App() {
     <main className={loading || !start ? "main" : "questions"}>
       
       {!start && <Header title={title} />}
-      {!start && <GameOptions category={questionData.map(item=>item.category)} onChange={handleChange}/>}
+      {!start && <GameOptions category={questionData.map(item=>item.category)} difficulty={questionData.map(item=>item.difficulty)}onChange={handleChange}/>}
       {!start && <Button btnText={StartBtnText} handleClick={startGame} />}
       {start && getQuiz}
       {start && loadingCondition}

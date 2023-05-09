@@ -1,14 +1,20 @@
 export default function GameOptions(props){
-const options = props.category.map((item,index)=> <option key = {index} value={item}>{item}</option>)
+const categoryOptions = props.category.map((item,index)=> <option key = {index} value={item}>{item}</option>)
+const difficultyOptions = props.difficulty.map((item,index)=> <option key = {index} value={item}>{item}</option>)
+
     
 return(
-    <form action="">
+    <form action="" className="form-controls">
     <select onChange={props.onChange}
      name="category"
      id="category"
      value={props.category}
     >
-    {options}
+    {categoryOptions}
+    
+    </select>
+    <select name="" id="">
+    {difficultyOptions}
     </select>
     </form>
 )
