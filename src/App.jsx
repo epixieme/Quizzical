@@ -9,15 +9,17 @@ import { nanoid } from "nanoid";
 export default function App() {
   const [start, setStart] = React.useState(false);
   //empty string for the first fetch
-  const [quiz, setQuiz] = React.useState("https://opentdb.com/api.php?amount=10");
+  const [quiz, setQuiz] = React.useState("");
+  const [categories, setCategories] = React.useState("");
   const [questionData, setQuestionData] = React.useState([]);
+  const [categoryData, setCategoryData] = React.useState([]);
 
   // console.log(questionData);
 
   const [loading, setLoading] = React.useState(false);
   const [check, setCheck] = React.useState(false);
   const [formData, setformData] = React.useState({
-    category:""
+    category: "",
   });
 
   const title = "Quizzical";
@@ -30,15 +32,30 @@ export default function App() {
     const fetchQuestions = async () => {
       try {
         setLoading(true);
-        const response = await fetch(quiz);
-        const data = await response.json();
+        const [quizResponse, categoriesResponse] = await Promise.all([
+          fetch("https://opentdb.com/api.php?amount=10"),
+          fetch("https://opentdb.com/api_category.php"),
+        ]);
 
+        const quiz = await quizResponse.json();
+        const categories = await categoriesResponse.json();
+
+        console.log(formData);
+// how to get category and difficulty from below and turn into url for quizresponse - use formdata 
+        setCategoryData(
+          categories.trivia_categories.map((item) => {
+            return { 
+              id: item.id, 
+              name: item.name, 
+              isSelected: false 
+            };
+          })
+        );
 
         setQuestionData(
-          data.results.map((item) => {
+          quiz.results.map((item) => {
             return {
-              category:item.category,
-              difficulty:item.difficulty,
+              difficulty: item.difficulty,
               question: item.question.replace(/&[#A-Za-z0-9]+;/gi, ""),
               id: nanoid(),
               allAnswers: [...item.incorrect_answers, item.correct_answer].map(
@@ -69,27 +86,28 @@ export default function App() {
   }, [quiz, start]);
 
   function handleChange(event) {
-    console.log(event)
-    const {name, value} = event.target
-    setFormData(prevFormData => {
-        return {
-            ...prevFormData,
-            [name]: value
-        }
-    })
-}
+    console.log(event);
+    const { name, value } = event.target;
 
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
+  }
 
-
-// console.log(gameCategory)
+  // console.log(gameCategory)
 
   function startGame() {
     setStart(true);
-    // setQuiz("https://opentdb.com/api.php?amount=10");
+// do I set the main url here by uing category api or the actual slecte
+    setQuiz("https://opentdb.com/api.php?amount=10");
+    // ` https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}`
 
-
-    // https://opentdb.com/api.php?amount=10&category=11&difficulty=medium
+    //  ` https://opentdb.com/api.php?amount=10&category=11&difficulty=medium`
   }
+
 
   function chooseAnswer(selectedAnswer, answerid, mainid) {
     // change all of this to use id so its unique.
@@ -127,22 +145,20 @@ export default function App() {
   }
 
   function correctAnswer() {
+    const selectedAnswers = questionData.flatMap((item) =>
+      item.allAnswers.filter((ele) => ele.isSelected)
+    );
 
-   const selectedAnswers = questionData.flatMap(item=>item.allAnswers.filter(ele=>ele.isSelected))
-    
-      if(selectedAnswers.length === 10){
-        setCheck(true);
-      }else{
-        alert("Please Ensure all questions are answered before submission")
-      }
-
-  
+    if (selectedAnswers.length === 10) {
+      setCheck(true);
+    } else {
+      alert("Please Ensure all questions are answered before submission");
+    }
   }
 
   function playAgain() {
     setStart(false);
     setCheck(false);
-
   }
 
   const getQuiz = questionData.map((item) => {
@@ -183,9 +199,14 @@ export default function App() {
 
   return (
     <main className={loading || !start ? "main" : "questions"}>
-      
       {!start && <Header title={title} />}
-      {!start && <GameOptions category={questionData.map(item=>item.category)} difficulty={questionData.map(item=>item.difficulty)}onChange={handleChange}/>}
+      {!start && (
+        <GameOptions
+          category={categoryData.map(item=>item.name)}
+          difficulty={questionData.map((item) => item.difficulty)}
+          onChange={handleChange}
+        />
+      )}
       {!start && <Button btnText={StartBtnText} handleClick={startGame} />}
       {start && getQuiz}
       {start && loadingCondition}
