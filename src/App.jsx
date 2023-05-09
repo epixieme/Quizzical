@@ -3,18 +3,22 @@ import Header from "./components/Header";
 import Button from "./components/Button";
 import Quiz from "./components/Quiz";
 import Spinner from "./components/Spinner";
+import GameOptions from "./components/GameOptions";
 import { nanoid } from "nanoid";
 
 export default function App() {
   const [start, setStart] = React.useState(false);
   //empty string for the first fetch
-  const [quiz, setQuiz] = React.useState("");
+  const [quiz, setQuiz] = React.useState("https://opentdb.com/api.php?amount=10");
   const [questionData, setQuestionData] = React.useState([]);
 
-  console.log(questionData);
+  // console.log(questionData);
 
   const [loading, setLoading] = React.useState(false);
   const [check, setCheck] = React.useState(false);
+  const [formData, setformData] = React.useState({
+    category:""
+  });
 
   const title = "Quizzical";
   const StartBtnText = "Start Here";
@@ -29,11 +33,11 @@ export default function App() {
         const response = await fetch(quiz);
         const data = await response.json();
 
-        // setquestiondata needs to be made into an object
 
         setQuestionData(
           data.results.map((item) => {
             return {
+              category:item.category,
               question: item.question.replace(/&[#A-Za-z0-9]+;/gi, ""),
               id: nanoid(),
               allAnswers: [...item.incorrect_answers, item.correct_answer].map(
@@ -63,9 +67,27 @@ export default function App() {
     fetchQuestions();
   }, [quiz, start]);
 
+  function handleChange(event) {
+    console.log(event)
+    const {name, value} = event.target
+    setFormData(prevFormData => {
+        return {
+            ...prevFormData,
+            [name]: value
+        }
+    })
+}
+
+
+
+// console.log(gameCategory)
+
   function startGame() {
     setStart(true);
-    setQuiz("https://opentdb.com/api.php?amount=10");
+    // setQuiz("https://opentdb.com/api.php?amount=10");
+
+
+    // https://opentdb.com/api.php?amount=10&category=11&difficulty=medium
   }
 
   function chooseAnswer(selectedAnswer, answerid, mainid) {
@@ -106,16 +128,14 @@ export default function App() {
   function correctAnswer() {
 
    const selectedAnswers = questionData.flatMap(item=>item.allAnswers.filter(ele=>ele.isSelected))
-    //if isSelected < 10 then message please select all else  setchecked true
-    // const allSelected = questionData.map(item=>item.allAnswers.every(item.isSelected))
-    // if(allSelected){
+    
       if(selectedAnswers.length === 10){
         setCheck(true);
       }else{
-        console.log("please select from all of the answers")
+        alert("Please Ensure all questions are answered before submission")
       }
 
-    // }
+  
   }
 
   function playAgain() {
@@ -144,7 +164,7 @@ export default function App() {
   ).length;
 
   const allAnswers = questionData.length;
-  console.log(allAnswers);
+  // console.log(allAnswers);
 
   const loadingCondition = loading ? (
     <Spinner loading={loading} isLoading={loadingText} />
@@ -162,7 +182,9 @@ export default function App() {
 
   return (
     <main className={loading || !start ? "main" : "questions"}>
+      
       {!start && <Header title={title} />}
+      {!start && <GameOptions category={questionData.map(item=>item.category)} onChange={handleChange}/>}
       {!start && <Button btnText={StartBtnText} handleClick={startGame} />}
       {start && getQuiz}
       {start && loadingCondition}
