@@ -40,7 +40,7 @@ export default function App() {
         const quiz = await quizResponse.json();
         const categories = await categoriesResponse.json();
 
-        console.log(formData);
+        console.log('form',formData);
 // how to get category and difficulty from below and turn into url for quizresponse - use formdata 
         setCategoryData(
           categories.trivia_categories.map((item) => {
@@ -203,7 +203,7 @@ export default function App() {
       {!start && (
         <GameOptions
           category={categoryData.map(item=>item.name)}
-          difficulty={questionData.map((item) => item.difficulty)}
+          difficulty={[...new Set(questionData.map((item) => item.difficulty))]}
           onChange={handleChange}
         />
       )}
