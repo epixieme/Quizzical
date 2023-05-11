@@ -15,5 +15,6 @@ Takeaways
 Learned how to code to specification and also added some extra features.
 Used Prep to prepare logic for each React component.
 Designed Tests to practice React testing. 
+learned about the use of loaders and added a spinner to enhance the user experience
 
 
