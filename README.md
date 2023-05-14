@@ -3,6 +3,7 @@
 React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
 
 <h2>Figma Designs</h2
+  [I'm an inline-style link with title](https://www.google.com "Google's Homepage")
 [link](https://www.figma.com/file/Vzf9swvWBXqygg77au5Rkm/Quizzical-App-(Copy)?type=design&node-id=0-1&t=GjNAT4BCnIu7Z0Fj-0)
 
 Designed to match as closely as possible to existing Figma prototypes with additional features eg 
