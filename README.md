@@ -1,6 +1,6 @@
 # Quizzical
-
-React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
+Live quiz - https://leafy-blini-c30780.netlify.app/
+Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
 
 Figma Designs
 (https://www.google.com](https://www.figma.com/file/Vzf9swvWBXqygg77au5Rkm/Quizzical-App-(Copy)?type=design&node-id=0-1&t=GjNAT4BCnIu7Z0Fj-0) )
