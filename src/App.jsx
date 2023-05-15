@@ -190,7 +190,7 @@ export default function App() {
     if (!start && !loading) {
       return (
         <>
-       <img className='yellow-blob' src={yellowBlob} alt="Yellow Blob" width="500px"/>;
+       <img className='yellow-blob-intro' src={yellowBlob} alt="Yellow Blob" width="500px"/>;
           <Header title={title} />
           <GameOptions
             category={categoryData.map((item) => item.name)}
@@ -202,7 +202,7 @@ export default function App() {
             diffValue={formData.difficulty}
           />
           <Button btnText={StartBtnText} handleClick={startGame} />
-          <img className='blue-blob' src={blueBlob} alt="blue Blob" width="500px"/>;
+          <img className='blue-blob-intro' src={blueBlob} alt="blue Blob" width="500px"/>;
         </>
       );
     } else if (loading) {

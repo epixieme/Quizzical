@@ -153,7 +153,7 @@ body {
       }
 
       @media screen and (min-width: 600px)  {
-        .yellow-blob{
+        .yellow-blob-intro{
           position:absolute;
           right:-100px;
           top:-200px;
@@ -163,7 +163,7 @@ body {
           
            }
 
-           .blue-blob{
+           .blue-blob-intro{
             position:absolute;
             left:-150px;
             bottom:-200px;
