@@ -43,21 +43,35 @@ body {
     .form-controls{
       display: flex;
       flex-direction: column;
+      gap:20px;
     }
+   .dropdown-control{
+    display: flex;
+    padding:20px 20px;
+    border-radius:10px;
+    border:1px solid #293264;
+    color:#293264;
+    
+   }
+
+
+
+ .spinner-position{
+  height:100vh;
+
+  display:flex;
+  align-items:center;
+ }
+   
     .questions{
 
-        /* width:100vw; */
-        /* height: 100vh; */
         display:flex; 
         flex-direction: column;
         justify-content: center;
-      align-items: center;
+        align-items: flex-start;
+    
   
-        
-     
-
-      
-
+  
     }
 
     .question-text > p{
@@ -70,9 +84,7 @@ body {
         display:flex; 
         flex-direction: column;
         justify-content: center;
-        /* align-items: center; */
-        /* border:1px solid red; */
-        padding:10px 20px
+        padding:10px;
     }
 
     .btn{
@@ -115,16 +127,19 @@ body {
 
 
       .answer-container{
+        display: flex;
+        justify-content: center;
         border:black solid 1px;
         border-radius:20px;
-        /* padding:5px 20px */
-   
+        padding:0 5px;
+        text-align: center;
 
       }
 
       .answers-outer-container{
         display:flex;
-        gap:20px
+      
+        gap:5px
         
       }
 
@@ -138,6 +153,44 @@ body {
       }
 
       @media screen and (min-width: 600px)  {
+        .yellow-blob{
+          position:absolute;
+          right:-100px;
+          top:-200px;
+          transform: rotate(-50deg);
+          transform: scale(1);
+          animation: pulse 8s infinite; 
+          
+           }
+
+           .blue-blob{
+            position:absolute;
+            left:-150px;
+            bottom:-200px;
+            transform: rotate(-50deg);
+            transform: scale(1);
+            animation: pulse 8s infinite; 
+            
+             }
+
+
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+
+	}
+
+	70% {
+		transform: scale(1.5);
+	
+	}
+
+	100% {
+		transform: scale(0.95);
+
+	}
+}
 
         .questions{
             display: flex;

@@ -12,7 +12,7 @@ export default function GameOptions(props) {
   const difficultyOptions = sorted.map((item, index) => (
     // sort easy medium hard or use destucturing 
     <option key={index} value={item}>
-      {item}
+      {item[0].toUpperCase()+ item.slice(1)}
     </option>
   ));
 
@@ -22,11 +22,20 @@ export default function GameOptions(props) {
         onChange={props.onChange}
         name="category"
         id="category"
-        value={props.category}
+        value={props.catValue}
+        className="dropdown-control"
       >
+       <option value="" disabled="disabled" selected >Choose Category</option>
         {categoryOptions}
       </select>
-      <select name="" id="">
+      <select 
+        onChange={props.onChange}
+        name="difficulty"
+        id="difficulty"
+        value={props.diffValue}
+        className="dropdown-control"
+      >
+        <option value="" disabled="disabled" selected >Choose Difficulty</option>
         {difficultyOptions}
       </select>
     </form>

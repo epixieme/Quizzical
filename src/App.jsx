@@ -5,6 +5,9 @@ import Quiz from "./components/Quiz";
 import Spinner from "./components/Spinner";
 import GameOptions from "./components/GameOptions";
 import { nanoid } from "nanoid";
+import yellowBlob from '../src/assets/images/yellowblob.svg'
+import blueBlob from '../src/assets/images/blueblob.svg'
+
 
 export default function App() {
   const [start, setStart] = React.useState(false);
@@ -14,14 +17,16 @@ export default function App() {
   const [questionData, setQuestionData] = React.useState([]);
   const [categoryData, setCategoryData] = React.useState([]);
 
-  // console.log(questionData);
+  console.log(quiz, "quizurl");
 
   const [loading, setLoading] = React.useState(false);
   const [check, setCheck] = React.useState(false);
-  const [formData, setformData] = React.useState({
+  const [formData, setFormData] = React.useState({
     category: "",
+    difficulty: "",
   });
 
+  console.log(categoryData, "catergorydate");
   const title = "Quizzical";
   const StartBtnText = "Start Here";
   const CheckResult = "Check Answers";
@@ -40,14 +45,14 @@ export default function App() {
         const quiz = await quizResponse.json();
         const categories = await categoriesResponse.json();
 
-        console.log('form',formData);
-// how to get category and difficulty from below and turn into url for quizresponse - use formdata 
+        console.log("form", formData);
+        // how to get category and difficulty from below and turn into url for quizresponse - use formdata
         setCategoryData(
           categories.trivia_categories.map((item) => {
-            return { 
-              id: item.id, 
-              name: item.name, 
-              isSelected: false 
+            return {
+              id: item.id,
+              name: item.name,
+              isSelected: false,
             };
           })
         );
@@ -100,18 +105,17 @@ export default function App() {
   // console.log(gameCategory)
 
   function startGame() {
-    setStart(true);
-// do I set the main url here by uing category api or the actual slecte
-    setQuiz("https://opentdb.com/api.php?amount=10");
-    // ` https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}`
-
-    //  ` https://opentdb.com/api.php?amount=10&category=11&difficulty=medium`
+    categoryData.map((item) => {
+      if (item.name === formData.category) {
+        setQuiz(
+          `https://opentdb.com/api.php?amount=10&category=${item.id}&difficulty=${formData.difficulty}`
+        );
+        setStart(true);
+      }
+    });
   }
 
-
   function chooseAnswer(selectedAnswer, answerid, mainid) {
-    // change all of this to use id so its unique.
-
     setQuestionData((prev) => {
       return prev.map((ele) => {
         // this picks the correct question otherwise it will look at the answers across all questions and only pick one answer for the whole thing rather than within each answer array
@@ -181,37 +185,50 @@ export default function App() {
   ).length;
 
   const allAnswers = questionData.length;
-  // console.log(allAnswers);
 
-  const loadingCondition = loading ? (
-    <Spinner loading={loading} isLoading={loadingText} />
-  ) : (
-    <section className="button-alignment">
-      <Button
-        btnText={check ? PlayAgain : CheckResult}
-        handleClick={check ? playAgain : correctAnswer}
-        checked={check}
-        numberCorrect={numberCorrect}
-        allAnswers={allAnswers}
-      />
-    </section>
-  );
+  function mainScreen() {
+    if (!start && !loading) {
+      return (
+        <>
+       <img className='yellow-blob' src={yellowBlob} alt="Yellow Blob" width="500px"/>;
+          <Header title={title} />
+          <GameOptions
+            category={categoryData.map((item) => item.name)}
+            difficulty={[
+              ...new Set(questionData.map((item) => item.difficulty)),
+            ]}
+            onChange={handleChange}
+            catValue={formData.category}
+            diffValue={formData.difficulty}
+          />
+          <Button btnText={StartBtnText} handleClick={startGame} />
+          <img className='blue-blob' src={blueBlob} alt="blue Blob" width="500px"/>;
+        </>
+      );
+    } else if (loading) {
+      return (
+        <section class="spinner-position">
+          <Spinner loading={loading} isLoading={loadingText} />
+        </section>
+      );
+    } else {
+      return (
+        <>
+ 
+          {getQuiz}
+          <section className="button-alignment">
+            <Button
+              btnText={check ? PlayAgain : CheckResult}
+              handleClick={check ? playAgain : correctAnswer}
+              checked={check}
+              numberCorrect={numberCorrect}
+              allAnswers={allAnswers}
+            />
+          </section>
+        </>
+      );
+    }
+  }
 
-  return (
-    <main className={loading || !start ? "main" : "questions"}>
-      {!start && <Header title={title} />}
-      {!start && (
-        <GameOptions
-          category={categoryData.map(item=>item.name)}
-          difficulty={[...new Set(questionData.map((item) => item.difficulty))]}
-          onChange={handleChange}
-        />
-      )}
-      {!start && <Button btnText={StartBtnText} handleClick={startGame} />}
-      {start && getQuiz}
-      {start && loadingCondition}
-    </main>
-  );
+  return <main className={!start ? "main" : "questions"}>{mainScreen()}</main>;
 }
-
-/// work out how to reset and clear the data

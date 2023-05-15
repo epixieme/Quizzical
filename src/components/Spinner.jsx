@@ -1,9 +1,9 @@
-export default function Spinner(props) {
-  if (props.loading) {
+export default function Spinner({loading, isLoading}) {
+  if (loading) {
     return (
       <section className="spinner-container">
         <section className="loading-spinner">
-          <p>{props.isLoading}</p>
+          <p>{isLoading}</p>
         </section>
       </section>
     );
