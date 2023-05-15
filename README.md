@@ -17,6 +17,6 @@ Designed to match as closely as possible to existing Figma prototypes with addit
   <li>Learned how to code to specification and also added some extra features.</li>
 <li>Used Prep to prepare logic for each React component.</li>
 <li>Designed Tests to practice React testing. </li>
-<li>learned about the use of loaders and added a spinner to enhance the user experience</li>
+<li>Learned about the use of loaders and added a spinner to enhance the user experience</li>
 
 </ul>
