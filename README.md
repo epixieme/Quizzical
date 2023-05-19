@@ -11,6 +11,7 @@ Designed to match as closely as possible to existing Figma prototypes with addit
 <ol>
   <li>Choose Difficulty</li>
   <li>Choose Category</li>
+  <li>Css animations</li>
 </ol>
   <h2>Takeaways</h2>
   <ul>
