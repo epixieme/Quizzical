@@ -35,7 +35,7 @@ export default function GameOptions(props) {
         value={props.diffValue}
         className="dropdown-control"
       >
-        <option value="" disabled="disabled" selected >Choose Difficulty</option>
+        <option value="" disabled="disabled" selected>Choose Difficulty</option>
         {difficultyOptions}
       </select>
     </form>

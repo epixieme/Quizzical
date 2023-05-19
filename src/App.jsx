@@ -5,19 +5,19 @@ import Quiz from "./components/Quiz";
 import Spinner from "./components/Spinner";
 import GameOptions from "./components/GameOptions";
 import { nanoid } from "nanoid";
-import yellowBlob from '../src/assets/images/yellowblob.svg'
-import blueBlob from '../src/assets/images/blueblob.svg'
-
+import yellowBlob from "../src/assets/images/yellowblob.svg";
+import blueBlob from "../src/assets/images/blueblob.svg";
 
 export default function App() {
   const [start, setStart] = React.useState(false);
   //empty string for the first fetch
   const [quiz, setQuiz] = React.useState("");
   const [categories, setCategories] = React.useState("");
+  const [quizChoice, setQuizChoice] = React.useState([]);
   const [questionData, setQuestionData] = React.useState([]);
   const [categoryData, setCategoryData] = React.useState([]);
 
-  console.log(quiz, "quizurl");
+  // console.log(quiz, "quizurl");
 
   const [loading, setLoading] = React.useState(false);
   const [check, setCheck] = React.useState(false);
@@ -26,26 +26,50 @@ export default function App() {
     difficulty: "",
   });
 
-  console.log(categoryData, "catergorydate");
+  // console.log(categoryData, "catergorydate");
   const title = "Quizzical";
   const StartBtnText = "Start Here";
   const CheckResult = "Check Answers";
   const PlayAgain = "Play Again";
   const loadingText = "loading...";
 
+  function startGame() {
+    setStart(true);
+    console.log("choices", quizChoice);
+  }
+
   React.useEffect(() => {
-    const fetchQuestions = async () => {
+    const fetchQuestions = async (item) => {
       try {
         setLoading(true);
-        const [quizResponse, categoriesResponse] = await Promise.all([
-          fetch("https://opentdb.com/api.php?amount=10"),
-          fetch("https://opentdb.com/api_category.php"),
-        ]);
+        function generateCategoryId() {
+          let id = "";
+          for (let i = 0; i < categoryData.length; i++) {
+            if (categoryData[i].name === formData.category)
+              id = categoryData[i].id;
+            console.log(id);
+          }
+          return id;
+        }
+
+        const [quizResponse, categoriesResponse, quizChoiceResponse] =
+          await Promise.all([
+            fetch("https://opentdb.com/api.php?amount=10"),
+            fetch("https://opentdb.com/api_category.php"),
+            //difficulty now works
+            fetch(
+              `https://opentdb.com/api.php?amount=10&category=${generateCategoryId()}&difficulty=${
+                formData.difficulty
+              }`
+            ),
+          ]);
 
         const quiz = await quizResponse.json();
         const categories = await categoriesResponse.json();
+        const quizChoice = await quizChoiceResponse.json();
+        console.log("quizchoices", quizChoice);
 
-        console.log("form", formData);
+        // console.log("form", formData);
         // how to get category and difficulty from below and turn into url for quizresponse - use formdata
         setCategoryData(
           categories.trivia_categories.map((item) => {
@@ -57,8 +81,10 @@ export default function App() {
           })
         );
 
+        const url = !start ? quiz : quizChoice;
+
         setQuestionData(
-          quiz.results.map((item) => {
+          url.results.map((item) => {
             return {
               difficulty: item.difficulty,
               question: item.question.replace(/&[#A-Za-z0-9]+;/gi, ""),
@@ -88,10 +114,10 @@ export default function App() {
     };
     //empty string for the first fetch so it doesn't just keep trying to load the api before the click
     fetchQuestions();
-  }, [quiz, start]);
+  }, [quiz, quizChoice, start]);
 
   function handleChange(event) {
-    console.log(event);
+    // console.log(event);
     const { name, value } = event.target;
 
     setFormData((prevFormData) => {
@@ -99,19 +125,6 @@ export default function App() {
         ...prevFormData,
         [name]: value,
       };
-    });
-  }
-
-  // console.log(gameCategory)
-
-  function startGame() {
-    categoryData.map((item) => {
-      if (item.name === formData.category) {
-        setQuiz(
-          `https://opentdb.com/api.php?amount=10&category=${item.id}&difficulty=${formData.difficulty}`
-        );
-        setStart(true);
-      }
     });
   }
 
@@ -148,6 +161,8 @@ export default function App() {
     });
   }
 
+  const allAnswers = questionData.length;
+
   function correctAnswer() {
     const selectedAnswers = questionData.flatMap((item) =>
       item.allAnswers.filter((ele) => ele.isSelected)
@@ -160,9 +175,14 @@ export default function App() {
     }
   }
 
+  const numberCorrect = questionData.flatMap((item) =>
+    item.allAnswers.filter((ele) => ele.isCorrect)
+  ).length;
+
   function playAgain() {
     setStart(false);
     setCheck(false);
+    // setQuiz("https://opentdb.com/api.php?amount=10")
   }
 
   const getQuiz = questionData.map((item) => {
@@ -180,17 +200,17 @@ export default function App() {
     );
   });
 
-  const numberCorrect = questionData.flatMap((item) =>
-    item.allAnswers.filter((ele) => ele.isCorrect)
-  ).length;
-
-  const allAnswers = questionData.length;
-
   function mainScreen() {
     if (!start && !loading) {
       return (
         <>
-       <img className='yellow-blob-intro' src={yellowBlob} alt="Yellow Blob" width="500px"/>;
+          <img
+            className="yellow-blob-intro"
+            src={yellowBlob}
+            alt="Yellow Blob"
+            width="500px"
+          />
+          ;
           <Header title={title} />
           <GameOptions
             category={categoryData.map((item) => item.name)}
@@ -202,7 +222,12 @@ export default function App() {
             diffValue={formData.difficulty}
           />
           <Button btnText={StartBtnText} handleClick={startGame} />
-          <img className='blue-blob-intro' src={blueBlob} alt="blue Blob" width="500px"/>;
+          <img
+            className="blue-blob-intro"
+            src={blueBlob}
+            alt="blue Blob"
+            width="500px"
+          />
         </>
       );
     } else if (loading) {
@@ -214,7 +239,6 @@ export default function App() {
     } else {
       return (
         <>
- 
           {getQuiz}
           <section className="button-alignment">
             <Button
