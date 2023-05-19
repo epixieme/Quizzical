@@ -1,5 +1,5 @@
 # Quizzical
-Live quiz - https://leafy-blini-c30780.netlify.app/
+Live quiz - [https://sunny-hotteok-ff02c9.netlify.app/]
 
 Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
 
@@ -11,6 +11,7 @@ Designed to match as closely as possible to existing Figma prototypes with addit
 <ol>
   <li>Choose Difficulty</li>
   <li>Choose Category</li>
+  <li>Css animations</li>
 </ol>
   <h2>Takeaways</h2>
   <ul>
