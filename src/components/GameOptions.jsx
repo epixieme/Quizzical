@@ -12,7 +12,7 @@ export default function GameOptions(props) {
   const difficultyOptions = sorted.map((item, index) => (
     // sort easy medium hard or use destucturing 
     <option key={index} value={item}>
-      {item[0].toUpperCase()+ item.slice(1)}
+      {item[0].toUpperCase() + item.slice(1)}
     </option>
   ));
 

@@ -33,11 +33,6 @@ export default function App() {
   const PlayAgain = "Play Again";
   const loadingText = "loading...";
 
-  function startGame() {
-    setStart(true);
-    console.log("choices", quizChoice);
-  }
-
   React.useEffect(() => {
     const fetchQuestions = async (item) => {
       try {
@@ -47,7 +42,6 @@ export default function App() {
           for (let i = 0; i < categoryData.length; i++) {
             if (categoryData[i].name === formData.category)
               id = categoryData[i].id;
-            console.log(id);
           }
           return id;
         }
@@ -56,7 +50,6 @@ export default function App() {
           await Promise.all([
             fetch("https://opentdb.com/api.php?amount=10"),
             fetch("https://opentdb.com/api_category.php"),
-            //difficulty now works
             fetch(
               `https://opentdb.com/api.php?amount=10&category=${generateCategoryId()}&difficulty=${
                 formData.difficulty
@@ -67,16 +60,12 @@ export default function App() {
         const quiz = await quizResponse.json();
         const categories = await categoriesResponse.json();
         const quizChoice = await quizChoiceResponse.json();
-        console.log("quizchoices", quizChoice);
 
-        // console.log("form", formData);
-        // how to get category and difficulty from below and turn into url for quizresponse - use formdata
         setCategoryData(
           categories.trivia_categories.map((item) => {
             return {
               id: item.id,
               name: item.name,
-              isSelected: false,
             };
           })
         );
@@ -128,6 +117,9 @@ export default function App() {
     });
   }
 
+  function startGame() {
+    setStart(true);
+  }
   function chooseAnswer(selectedAnswer, answerid, mainid) {
     setQuestionData((prev) => {
       return prev.map((ele) => {
@@ -182,7 +174,7 @@ export default function App() {
   function playAgain() {
     setStart(false);
     setCheck(false);
-    // setQuiz("https://opentdb.com/api.php?amount=10")
+    setFormData({ category: "", difficulty: "" });
   }
 
   const getQuiz = questionData.map((item) => {
