@@ -2,7 +2,7 @@
 Live quiz - [https://endearing-kleicha-03bfbe.netlify.app]
 
 
-<img src="(https://github.com/epixieme/Quizzical/assets/39728053/29a2b303-1f26-45a0-803d-e24bebc044fd" width="250" height="250"/>
+<img src="https://github.com/epixieme/Quizzical/assets/39728053/29a2b303-1f26-45a0-803d-e24bebc044fd" width="250" height="250"/>
 
 Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
 
