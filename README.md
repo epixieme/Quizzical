@@ -1,5 +1,5 @@
 # Quizzical
-Live quiz - [https://sunny-hotteok-ff02c9.netlify.app/]
+Live quiz - [https://endearing-kleicha-03bfbe.netlify.app]
 
 Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
 
