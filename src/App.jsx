@@ -12,13 +12,9 @@ export default function App() {
   const [start, setStart] = React.useState(false);
   //empty string for the first fetch
   const [quiz, setQuiz] = React.useState("");
-  const [categories, setCategories] = React.useState("");
   const [quizChoice, setQuizChoice] = React.useState([]);
   const [questionData, setQuestionData] = React.useState([]);
   const [categoryData, setCategoryData] = React.useState([]);
-
-  // console.log(quiz, "quizurl");
-
   const [loading, setLoading] = React.useState(false);
   const [check, setCheck] = React.useState(false);
   const [formData, setFormData] = React.useState({
@@ -26,7 +22,6 @@ export default function App() {
     difficulty: "",
   });
 
-  // console.log(categoryData, "catergorydate");
   const title = "Quizzical";
   const StartBtnText = "Start Here";
   const CheckResult = "Check Answers";
@@ -101,12 +96,11 @@ export default function App() {
         setLoading(false);
       }
     };
-    //empty string for the first fetch so it doesn't just keep trying to load the api before the click
+
     fetchQuestions();
   }, [quiz, quizChoice, start]);
 
   function handleChange(event) {
-    // console.log(event);
     const { name, value } = event.target;
 
     setFormData((prevFormData) => {
@@ -133,7 +127,7 @@ export default function App() {
                 return {
                   ...item,
                   isSelected: true,
-                  isCorrect: selectedAnswer === item.correctAnswer, // this equates to true
+                  isCorrect: selectedAnswer === item.correctAnswer, 
                 };
               } else {
                 return {
@@ -178,7 +172,6 @@ export default function App() {
   }
 
   const getQuiz = questionData.map((item) => {
-    //work out how to update the if correct then
     return (
       <Quiz
         question={item.question}
