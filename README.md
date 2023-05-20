@@ -1,6 +1,7 @@
 # Quizzical
 Live quiz - [https://endearing-kleicha-03bfbe.netlify.app]
 
+<img src="https://github.com/epixieme/Quizzical/assets/39728053/56db14dd-7cd6-4793-9c0e-90bd8975274c" height="450"/>
 
 <img src="https://github.com/epixieme/Quizzical/assets/39728053/29a2b303-1f26-45a0-803d-e24bebc044fd" height="450"/>
 
