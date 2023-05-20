@@ -1,7 +1,7 @@
 # Quizzical
 Live quiz - [https://endearing-kleicha-03bfbe.netlify.app]
-![quizzer_AdobeExpress (1)](https://github.com/epixieme/Quizzical/assets/39728053/2f4d1d12-bd39-4c75-a3db-215accb77419)
 
+![quiz_AdobeExpress](https://github.com/epixieme/Quizzical/assets/39728053/29a2b303-1f26-45a0-803d-e24bebc044fd)
 
 
 Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
