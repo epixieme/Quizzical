@@ -31,6 +31,7 @@ export default function App() {
   React.useEffect(() => {
     const fetchQuestions = async (item) => {
       try {
+
         setLoading(true);
 
         function generateCategoryId() {
@@ -41,8 +42,6 @@ export default function App() {
           }
           return id;
         }
-
-        
 
         const [quizResponse, categoriesResponse, quizChoiceResponse] =
           await Promise.all([
@@ -69,7 +68,6 @@ export default function App() {
         );
 
         const url = !start ? quiz : quizChoice;
-        const randomNumber = Math.floor(Math.random() * quiz.length)
       
         setQuestionData(
           url.results.map((item) => {
