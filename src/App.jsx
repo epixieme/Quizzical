@@ -32,6 +32,7 @@ export default function App() {
     const fetchQuestions = async (item) => {
       try {
         setLoading(true);
+
         function generateCategoryId() {
           let id = "";
           for (let i = 0; i < categoryData.length; i++) {
@@ -40,6 +41,8 @@ export default function App() {
           }
           return id;
         }
+
+        
 
         const [quizResponse, categoriesResponse, quizChoiceResponse] =
           await Promise.all([
@@ -66,14 +69,18 @@ export default function App() {
         );
 
         const url = !start ? quiz : quizChoice;
-
+        const randomNumber = Math.floor(Math.random() * quiz.length)
+      
         setQuestionData(
           url.results.map((item) => {
+            
+            const answers =  [...item.incorrect_answers, item.correct_answer].sort(() => 0.5 - Math.random())
+
             return {
               difficulty: item.difficulty,
               question: item.question.replace(/&[#A-Za-z0-9]+;/gi, ""),
               id: nanoid(),
-              allAnswers: [...item.incorrect_answers, item.correct_answer].map(
+              allAnswers: answers.map(
                 (ele) => {
                   return {
                     answer: ele.replace(/&[#A-Za-z0-9]+;/gi, ""),
