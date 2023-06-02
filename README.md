@@ -1,5 +1,5 @@
 # Quizzical
-Live quiz - [https://endearing-kleicha-03bfbe.netlify.app]
+Live quiz - [https://boisterous-blancmange-5aeb79.netlify.app/]
 <img src="https://github.com/epixieme/Quizzical/assets/39728053/56db14dd-7cd6-4793-9c0e-90bd8975274c" height="450"/>
 
 Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
