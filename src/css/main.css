@@ -3,6 +3,8 @@ html{
   color:#293264;
 }
 body {
+
+  
   display: grid;
   place-items: center;
   background-color: #F5F7FB;
