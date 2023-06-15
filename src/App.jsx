@@ -215,12 +215,12 @@ console.log(questionData)
             diffValue={formData.difficulty}
           />
           <Button btnText={StartBtnText} handleClick={startGame} />
-          {/* <img
+          <img
             className="blue-blob-intro"
             src={blueBlob}
             alt="blue Blob"
             width="500px"
-          /> */}
+          />
         </>
       );
     } else if (loading) {
