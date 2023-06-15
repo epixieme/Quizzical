@@ -211,7 +211,7 @@ h1 {
     display:flex; 
     flex-direction: column;
     justify-content: center;
-    padding: 10px 140px
+    /* padding: 10px 140px */
 }
 
   .question-text>p {
@@ -220,9 +220,9 @@ h1 {
 
   .answer-container{
     justify-content: center;
-    padding:0 8px;
+    padding:0 20px;
     text-align: center;
-    min-width: 0;
+    min-width: 70px;
     font-size: 1rem;
   }
 
