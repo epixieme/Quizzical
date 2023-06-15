@@ -9,7 +9,7 @@ export default function Quiz(props) {
       }
 
       if (answer.answer === answer.correctAnswer && props.isChecked) {
-        return "#94D7A2";
+        return ["#94D7A2"];
       } else if (answer.isSelected && answer.isCorrect && props.isChecked) {
         return "#94D7A2";
       } else if (answer.isSelected && !answer.isCorrect && props.isChecked) {
@@ -19,8 +19,15 @@ export default function Quiz(props) {
       }
     }
 
+  // function borderColors(){
+  //   if(answer.isSelected  answer.isCorrect){
+  //     return "1px solid white"
+  //   }
+   
+  // }
+ 
     const styles = {
-      border: answer.isSelected ? "1px solid white" : "#293264 1px solid",
+      border: answer.isSelected || answer.isCorrect? "1px solid white" : "#293264 1px solid",
       backgroundColor: answerColors(),
     };
 

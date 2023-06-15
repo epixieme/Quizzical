@@ -162,8 +162,8 @@ console.log(questionData)
 
     if (selectedAnswers.length === 10) {
       setCheck(true);
-     
-      
+    
+    
     } else {
       alert("Please Ensure all questions are answered before submission");
     }
@@ -215,12 +215,12 @@ console.log(questionData)
             diffValue={formData.difficulty}
           />
           <Button btnText={StartBtnText} handleClick={startGame} />
-          <img
+          {/* <img
             className="blue-blob-intro"
             src={blueBlob}
             alt="blue Blob"
             width="500px"
-          />
+          /> */}
         </>
       );
     } else if (loading) {
