@@ -21,7 +21,7 @@ export default function App() {
     category: "",
     difficulty: "",
   });
-
+console.log(questionData)
   const title = "Quizzical";
   const StartBtnText = "Start Here";
   const CheckResult = "Check Answers";
@@ -155,12 +155,15 @@ export default function App() {
   const allAnswers = questionData.length;
 
   function correctAnswer() {
+
     const selectedAnswers = questionData.flatMap((item) =>
       item.allAnswers.filter((ele) => ele.isSelected)
     );
 
     if (selectedAnswers.length === 10) {
       setCheck(true);
+     
+      
     } else {
       alert("Please Ensure all questions are answered before submission");
     }

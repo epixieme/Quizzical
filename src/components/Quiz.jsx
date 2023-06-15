@@ -1,6 +1,6 @@
 export default function Quiz(props) {
   const answers = props.allAnswers.map((answer) => {
-    //     // console.log(answer.id) how do I get this to work on click rather than straigt off
+
     function answerColors() {
       if (answer.isSelected && !props.isChecked) {
         return "#D6DBF5";
@@ -23,6 +23,7 @@ export default function Quiz(props) {
       border: answer.isSelected ? "1px solid white" : "#293264 1px solid",
       backgroundColor: answerColors(),
     };
+
     return (
       <section className={"answer-container"} key={answer.id} style={styles}>
         <p
