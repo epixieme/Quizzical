@@ -89,7 +89,7 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px;
+  padding: 40px;
 }
 
 .btn {
@@ -133,19 +133,27 @@ h1 {
 
 .answer-container {
   display: flex;
+
   justify-content: center;
   border: black solid 1px;
   border-radius: 20px;
   padding: 0 5px;
-  text-align: center;
   font-size: 0.8rem;
   word-wrap: break-word;
+  min-width:300px;
+  /* max-width:300px; */
+ 
 }
 
 .answers-outer-container {
   display: flex;
   flex-direction: column;
-  gap: 5px
+  /* justify-content: center; */
+  align-items: center;
+  gap: 5px;
+  /* padding: 40px; */
+ 
+  
 }
 
 .button-alignment {
@@ -198,18 +206,28 @@ h1 {
     align-items: flex-start;
   }
 
-  .question-text {
+ 
+  .question-text{
+    display:flex; 
+    flex-direction: column;
+    justify-content: center;
     padding: 10px 140px
-  }
+}
 
   .question-text>p {
     font-size: 1.8rem;
   }
 
-  .answer-container {
+  .answer-container{
+    justify-content: center;
+    padding:0 8px;
+    text-align: center;
+    min-width: 0;
     font-size: 1rem;
-    border-radius: 20px;
-    padding: 0 20px
+  }
+
+  .answers-outer-container{
+    flex-direction: row;
   }
 
   .display-score {
