@@ -3,13 +3,12 @@ html{
   color:#293264;
 }
 body {
-  padding: 5rem 1rem 1rem 1rem;
-  max-width: 600px;
-  margin: auto;
+  display: grid;
+  place-items: center;
   background-color: #F5F7FB;
   font-family: 'Karla', sans-serif;
   box-sizing: border-box;
-
+  margin:0 
 }
 .wrapper {
   background-color: #fff9e6;
