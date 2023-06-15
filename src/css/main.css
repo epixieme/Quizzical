@@ -1,16 +1,19 @@
 html{
+
   font-size:100%;
   color:#293264;
+ 
 }
 body {
-
-  
+  height: 100%;
   display: grid;
   place-items: center;
   background-color: #F5F7FB;
   font-family: 'Karla', sans-serif;
   box-sizing: border-box;
-  margin:0 
+  margin:0;
+
+ 
 }
 .wrapper {
   background-color: #fff9e6;
@@ -21,11 +24,15 @@ h1 {
   color:#293264;
 }
 .main-screen{
+
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding:0 60px 
+  padding:0 60px ;
+  
+
+ 
 }
 .main{
   width:100vw;
@@ -36,6 +43,8 @@ h1 {
   gap:20px;
   align-items: center;
   font-size: 1rem;
+  overflow: hidden;
+position: relative;
 }
 .form-controls{
   display: flex;
@@ -132,6 +141,9 @@ h1 {
       right:-100px;
       top:-200px;
       transform: rotate(-50deg);
+      height:400px;
+      width:400px;
+   margin:auto
     
  }
   .blue-blob-intro{
@@ -141,6 +153,9 @@ h1 {
       transform: rotate(-50deg);
       transform: scale(1);
       animation: pulse 8s infinite;
+      height:400px;
+      width:400px;
+      margin:auto
  }
   @keyframes pulse {
       0% {
@@ -172,4 +187,8 @@ h1 {
       gap:30px;
       font-weight:600 
  }
+
+.main{
+  
+}
 }

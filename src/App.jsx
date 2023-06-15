@@ -201,7 +201,7 @@ console.log(questionData)
             className="yellow-blob-intro"
             src={yellowBlob}
             alt="Yellow Blob"
-            width="500px"
+            // width="500px"
           />
           ;
           <Header title={title} />
@@ -225,7 +225,7 @@ console.log(questionData)
       );
     } else if (loading) {
       return (
-        <section class="spinner-position">
+        <section className="spinner-position">
           <Spinner loading={loading} isLoading={loadingText} />
         </section>
       );
