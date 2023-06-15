@@ -17,23 +17,27 @@ body {
 
 }
 
-/* .wrapper {
+.wrapper {
   background-color: #fff9e6;
   padding: 20px;
   border-radius: 10px;
-} */
+}
 
 h1 {
   color: #293264;
 }
 
-/* .main-screen {
+.main-screen {
+
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   padding: 0 60px;
-} */
+
+
+
+}
 
 .main {
   width: 100vw;
@@ -74,7 +78,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0, 40px;
+  /* padding: 0, 40px; */
 }
 
 .question-text>p {
@@ -87,7 +91,6 @@ h1 {
   flex-direction: column;
   justify-content: center;
   padding: 40px;
-
 }
 
 .btn {
@@ -209,8 +212,7 @@ h1 {
     display:flex; 
     flex-direction: column;
     justify-content: center;
-    /* padding: 10px 140px */
-    padding:5px;
+    padding: 10px 140px
 }
 
   .question-text>p {
