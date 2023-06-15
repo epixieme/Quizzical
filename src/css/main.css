@@ -61,6 +61,7 @@ h1 {
 
 .dropdown-control {
   display: flex;
+  -webkit-padding:20px 20px;
   padding: 20px 20px;
   border-radius: 10px;
   border: 1px solid #293264;
