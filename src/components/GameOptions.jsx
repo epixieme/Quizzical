@@ -5,12 +5,17 @@ export default function GameOptions(props) {
     </option>
   ));
 
-
-  const levels = [{difficulty:'easy', index:0},{difficulty:'medium', index:1},{ difficulty:'hard', index:2}];
-  const sorted = props.difficulty.sort((a, b) => levels.indexOf(b.difficulty) - levels.indexOf(a.difficulty));
+  const levels = [
+    { difficulty: "easy", index: 0 },
+    { difficulty: "medium", index: 1 },
+    { difficulty: "hard", index: 2 },
+  ];
+  const sorted = props.difficulty.sort(
+    (a, b) => levels.indexOf(b.difficulty) - levels.indexOf(a.difficulty)
+  );
 
   const difficultyOptions = sorted.map((item, index) => (
-    // sort easy medium hard or use destucturing 
+    // sort easy medium hard or use destucturing
     <option key={index} value={item}>
       {item[0].toUpperCase() + item.slice(1)}
     </option>
@@ -18,26 +23,38 @@ export default function GameOptions(props) {
 
   return (
     <form action="" className="form-controls">
-      <select
-        onChange={props.onChange}
-        name="category"
-        id="category"
-        value={props.catValue}
-        className="dropdown-control"
-      >
-       <option value="" disabled="disabled" selected >Choose Category</option>
-        {categoryOptions}
-      </select>
-      <select 
-        onChange={props.onChange}
-        name="difficulty"
-        id="difficulty"
-        value={props.diffValue}
-        className="dropdown-control"
-      >
-        <option value="" disabled="disabled" selected>Choose Difficulty</option>
-        {difficultyOptions}
-      </select>
+      <label htmlFor="dropdown-control">Choose a Category:</label>
+      <section className="select">
+        <select
+          onChange={props.onChange}
+          name="category"
+          id="category"
+          value={props.catValue}
+          className="dropdown-control"
+        >
+          <option disabled="disabled" selected>
+            Choose Category
+          </option>
+          {categoryOptions}
+        </select>
+        <span className="focus"></span>
+      </section>
+      <label htmlFor="dropdown-control">Choose your difficulty:</label>
+      <section className="select">
+        <select
+          onChange={props.onChange}
+          name="difficulty"
+          id="difficulty"
+          value={props.diffValue}
+          className="dropdown-control"
+        >
+          <option  disabled="disabled" selected>
+            Choose Difficulty
+          </option>
+          {difficultyOptions}
+        </select>
+        <span className="focus"></span>
+      </section>
     </form>
   );
 }

@@ -1,12 +1,16 @@
+import index from "./css/index.css";
+
 import React from "react";
 import Header from "./components/Header";
 import Button from "./components/Button";
 import Quiz from "./components/Quiz";
 import Spinner from "./components/Spinner";
 import GameOptions from "./components/GameOptions";
+import Main from "./components/Main";
 import { nanoid } from "nanoid";
 import yellowBlob from "../src/assets/images/yellowblob.svg";
 import blueBlob from "../src/assets/images/blueblob.svg";
+
 
 export default function App() {
   const [start, setStart] = React.useState(false);
@@ -21,6 +25,7 @@ export default function App() {
     category: "",
     difficulty: "",
   });
+
 console.log(questionData)
   const title = "Quizzical";
   const StartBtnText = "Start Here";
@@ -196,14 +201,13 @@ console.log(questionData)
   function mainScreen() {
     if (!start && !loading) {
       return (
-        <>
+        <section>
           <img
             className="yellow-blob-intro"
             src={yellowBlob}
             alt="Yellow Blob"
-            // width="500px"
           />
-          ;
+          
           <Header title={title} />
           <GameOptions
             category={categoryData.map((item) => item.name)}
@@ -214,14 +218,17 @@ console.log(questionData)
             catValue={formData.category}
             diffValue={formData.difficulty}
           />
+          <section className="button-alignment">
           <Button btnText={StartBtnText} handleClick={startGame} />
+          </section>
+     
           <img
             className="blue-blob-intro"
             src={blueBlob}
             alt="blue Blob"
             width="500px"
           />
-        </>
+        </section>
       );
     } else if (loading) {
       return (
@@ -247,5 +254,7 @@ console.log(questionData)
     }
   }
 
-  return <main className={!start ? "main" : "questions"}>{mainScreen()}</main>;
+  return <Main mainScreen={mainScreen()} start={start}/>
+  
+
 }

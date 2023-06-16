@@ -1,4 +1,4 @@
-export default function Spinner({loading, isLoading}) {
+export default function Spinner({ loading, isLoading }) {
   if (loading) {
     return (
       <section className="spinner-container">

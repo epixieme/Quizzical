@@ -1,4 +1,4 @@
-import main from "../css/main.css";
+
 export default function Button(props) {
 const noOfCorrectAnswers = props.numberCorrect
 

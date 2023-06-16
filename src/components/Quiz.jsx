@@ -1,6 +1,5 @@
 export default function Quiz(props) {
   const answers = props.allAnswers.map((answer) => {
-
     function answerColors() {
       if (answer.isSelected && !props.isChecked) {
         return "#D6DBF5";
@@ -19,15 +18,18 @@ export default function Quiz(props) {
       }
     }
 
-  // function borderColors(){
-  //   if(answer.isSelected  answer.isCorrect){
-  //     return "1px solid white"
-  //   }
-   
-  // }
- 
+    // function borderColors(){
+    //   if(answer.isSelected  answer.isCorrect){
+    //     return "1px solid white"
+    //   }
+
+    // }
+
     const styles = {
-      border: answer.isSelected || answer.isCorrect? "1px solid white" : "#293264 1px solid",
+      border:
+        answer.isSelected || answer.isCorrect
+          ? "1px solid white"
+          : "#293264 1px solid",
       backgroundColor: answerColors(),
     };
 
