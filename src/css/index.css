@@ -93,9 +93,8 @@ select {
   background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
   position: relative;
   font-family: 'Karla', sans-serif;
- font-size: 1rem;
-
-
+  font-size: 1rem;
+  color:black
 }
 
 .select::after {
