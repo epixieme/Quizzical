@@ -33,6 +33,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   padding:0 60px;
+  text-align: center;
 }
 
 .main {
@@ -73,6 +74,7 @@ select {
   cursor: inherit;
   line-height: inherit;
   outline: none;
+  color:black
 
 }
 
@@ -94,7 +96,7 @@ select {
   position: relative;
   font-family: 'Karla', sans-serif;
   font-size: 1rem;
-  color:black
+ 
 }
 
 .select::after {
@@ -103,7 +105,6 @@ select {
   height: 0.5em;
   background-color: #4D5C9D;
   clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-
   justify-self: end;
 
 }
