@@ -5,10 +5,11 @@
 
 Live quiz - https://boisterous-blancmange-5aeb79.netlify.app/
 
+Figma Designs- https://www.google.com](https://www.figma.com/file/Vzf9swvWBXqygg77au5Rkm/Quizzical-App-(Copy)?type=design&node-id=0-1&t=GjNAT4BCnIu7Z0Fj-0
+
+
 Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
 
-Figma Designs
-(https://www.google.com](https://www.figma.com/file/Vzf9swvWBXqygg77au5Rkm/Quizzical-App-(Copy)?type=design&node-id=0-1&t=GjNAT4BCnIu7Z0Fj-0) )
 
 
 Designed to match as closely as possible to existing Figma prototypes with additional features eg 
