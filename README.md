@@ -1,4 +1,8 @@
 # Quizzical
+<img width="1439" alt="quizzical" src="https://github.com/epixieme/Quizzical/assets/39728053/447e0269-b154-4161-b3ea-f5e05d658109">
+
+
+
 Live quiz - [https://boisterous-blancmange-5aeb79.netlify.app/]
 
 Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
