@@ -23,7 +23,7 @@ export default function GameOptions(props) {
 
   return (
     <form action="" className="form-controls">
-      <label htmlFor="dropdown-control">Choose a Category:</label>
+      <label htmlFor="dropdown-control">Choose A Category:</label>
       <section className="select">
         <select
           onChange={props.onChange}
@@ -39,7 +39,7 @@ export default function GameOptions(props) {
         </select>
         <span className="focus"></span>
       </section>
-      <label htmlFor="dropdown-control">Choose your difficulty:</label>
+      <label htmlFor="dropdown-control">Choose Your Difficulty:</label>
       <section className="select">
         <select
           onChange={props.onChange}
