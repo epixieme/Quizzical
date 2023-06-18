@@ -10,8 +10,6 @@ Figma Designs - https://www.figma.com/file/Vzf9swvWBXqygg77au5Rkm/Quizzical-App-
 
 Fully responsive React Trivia Quiz app using the Opendb API and created with Hooks UseState and UseEffect.
 
-
-
 Designed to match as closely as possible to existing Figma prototypes with additional features eg 
 <ol>
   <li>Choose Difficulty</li>
