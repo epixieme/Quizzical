@@ -24,3 +24,5 @@ Designed to match as closely as possible to existing Figma prototypes with addit
 <li>Designed Tests to practice React testing. </li>
 <li>Learned about the use of loaders and added a spinner to enhance the user experience</li>
 </ul>
+
+
